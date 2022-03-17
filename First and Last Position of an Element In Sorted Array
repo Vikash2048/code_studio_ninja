@@ -1,0 +1,133 @@
+Problem Statement -->
+
+You have been given a sorted array/list ARR consisting of ‘N’ elements. You are also given an integer ‘K’.
+Now, your task is to find the first and last occurrence of ‘K’ in ARR.
+
+
+Note :
+1. If ‘K’ is not present in the array, then the first and the last occurrence will be -1. 
+2. ARR may contain duplicate elements.
+
+
+For example, if ARR = [0, 1, 1, 5] and K = 1, then the first and last occurrence of 1 will be 1(0 - indexed) and 2.
+
+Input Format -->
+The first line of input contains an integer 'T' which denotes the number of test cases or queries to be run. Then the test cases follow.
+
+The first line of each test case contains two single-space separated integers ‘N’ and ‘K’, respectively.
+
+The second line of each test case contains ‘N’ single space-separated integers denoting the elements of the array/list ARR.
+
+
+Output Format -->
+Return two single-space separated integers denoting the first and the last occurrence of ‘K’ in ARR, respectively.
+
+
+Note:
+You do not need to print anything; it has already been taken care of. Just implement the given function.
+Constraints:
+1 <= T <= 100
+1 <= N <= 5000
+0 <= K <= 10^5
+0 <= ARR[i] <=10^5
+
+Time Limit : 1 second
+
+
+Sample Input 1:
+2
+6 3
+0 5 5 6 6 6
+8 2
+0 0 1 1 2 2 2 2
+
+
+Sample Output 1:
+-1 -1 
+4 7
+
+Solution / Source code 
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int FirstOccurrence(vector<int>& arr, int n, int k)
+{
+    int start = 0, end = n-1;
+    int ans = -1;
+    
+    while(start <= end)
+    {
+        int mid = start + (end - start)/2;
+        if(arr[mid] == k)
+        {
+            ans = mid;
+            end = mid - 1;
+        }
+        else if(arr[mid] > k)
+        {
+            end = mid -1;
+        }
+        else 
+        {
+            start = mid + 1;
+        }
+    }
+    return ans;
+}
+
+int LastOccurrence(vector<int>& arr, int n, int k)
+{
+    int start = 0, end = n-1;
+    int ans = -1;
+    
+    while(start <= end)
+    {
+        int mid = start + (end - start)/2;
+        if(arr[mid] == k)
+        {
+            ans = mid;
+            start = mid + 1;
+        }
+        else if(arr[mid] > k)
+        {
+            end = mid -1;
+        }
+        else 
+        {
+            start = mid + 1;
+        }
+    }
+    return ans;
+}
+
+
+
+int main()
+{
+    vector<int>arr;
+    int n;
+    int k;
+    int num;
+    
+    cout<<"Enter the number of element you want to enter "<<endl;
+    cin>>n;
+    
+    for(int i = 0; i<n; i++)
+    {
+        cout<<" Enter the "<<i+1<<" element "<<endl;
+        cin>>num;
+        arr.push_back(num);
+        
+    }
+    
+    cout<<" Enter the element you want to search "<<endl;
+    cin>>k;
+    
+    cout<<"First Occurrence of "<<k<<" is "<<FirstOccurrence(arr, n, k)<<endl;
+    cout<<"last Occurrence of "<<k<< " is "<<LastOccurrence(arr, n, k);
+
+    return 0;
+}
